@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/icon_to_do"
+        android:icon="@drawable/asset_to_do"
+        android:title="To Do" />
+    <item
+        android:id="@+id/icon_in_process"
+        android:icon="@drawable/asset_in_process"
+        android:title="In Processs" />
+    <item
+        android:id="@+id/icon_done"
+        android:icon="@drawable/asset_done"
+        android:title="Done" />
+</menu>

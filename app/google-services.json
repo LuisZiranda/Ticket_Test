@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "821402131315",
-    "firebase_url": "https://tickets-3bc6a-default-rtdb.firebaseio.com",
-    "project_id": "tickets-3bc6a",
-    "storage_bucket": "tickets-3bc6a.appspot.com"
+    "project_number": "531906359909",
+    "project_id": "tickettest-23f59",
+    "storage_bucket": "tickettest-23f59.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821402131315:android:c70170af1d25b73f718306",
+        "mobilesdk_app_id": "1:531906359909:android:9ce8c7e332041e177acc8c",
         "android_client_info": {
           "package_name": "com.example.ticket"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDJUFRxGPhu91aY1___-8WpVTtVW5sKpXs"
+          "current_key": "AIzaSyDIY_QUVkBT62KQxOL2r6G5cg2hlQmmWlY"
         }
       ],
       "services": {
