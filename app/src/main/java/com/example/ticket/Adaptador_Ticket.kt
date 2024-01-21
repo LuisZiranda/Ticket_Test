@@ -1,39 +1,38 @@
 package com.example.ticket
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ticket.Model.Ticket
+import com.example.ticket.databinding.ItemTicketLayoutBinding
 
-class Adaptador_Ticket(private val emplist: ArrayList<Ticket>) : RecyclerView.Adapter<Adaptador_Ticket.ViewHolder>() {
-
-    interface OnClickListener{
-        fun onTicketClick()
-    }
+class Adaptador_Ticket(private val emplist: ArrayList<Ticket>,
+                       val itemClickListener:(Ticket)->Unit
+                        ) : RecyclerView.Adapter<Adaptador_Ticket.ViewHolder>() {
 
     //lleva el control de los elementos de la vista
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvNombre: TextView = itemView.findViewById(R.id.tvName)
-        val tvIncidencia: TextView = itemView.findViewById(R.id.tvIncidencia)
-        val tvGravedad: TextView = itemView.findViewById(R.id.tvGravedad)
-        val cardItem: CardView = itemView.findViewById(R.id.cardItem)
-
+    inner class ViewHolder(val binding: ItemTicketLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(get: Ticket) = with(binding){
+            tvName.text = get.titulo
+            tvIncidencia.text = get.incidencia
+            tvGravedad.text = get.gravedad
+            root.setOnClickListener {
+                itemClickListener(get)
+            }
+        }
     }
 
     //vista
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ticket_layout, parent,false)
-        return ViewHolder(view)
+        val binding = ItemTicketLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = emplist[position]
-        holder.tvNombre.text = item.titulo
-        holder.tvIncidencia.text = item.incidencia
-        holder.tvGravedad.text = item.gravedad
+        holder.bind(emplist.get(position))
     }
 
     //posicion

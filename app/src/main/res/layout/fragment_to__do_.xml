@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".To_Do_Fragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

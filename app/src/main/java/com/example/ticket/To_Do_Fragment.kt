@@ -23,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
 class To_Do_Fragment : Fragment() {
     private val db= FirebaseFirestore.getInstance()
     private val coleccion = db.collection("Tickets")
-    private var empleolist:ArrayList<Ticket> = ArrayList<Ticket>()
+    private var emptyList:ArrayList<Ticket> = ArrayList<Ticket>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,18 +52,26 @@ class To_Do_Fragment : Fragment() {
                 val estatus = document.getString("Estatus")
                 val ID = document.id
                 if (estatus == "Nuevo"){
-                    println(fecha)
                     val modelo = Ticket(ID,titulo,nombre,equipo,tipo_incidencia,gravedad_incidencia,
                         version_software,descripcion,archivos,estatus,fecha)
-                    empleolist.add(modelo)
+                    emptyList.add(modelo)
                 }
             }
-            val itemAdapter = Adaptador_Ticket(empleolist)
+            val itemAdapter = Adaptador_Ticket(emptyList){ ticket ->
+                val fragmentManager = requireActivity().supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(
+                    ((view as ViewGroup).parent as View).id,
+                    UpdateTicket(ticket.id),
+                )
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
             val recyclerView:RecyclerView=view.findViewById(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = itemAdapter
         }
-        empleolist.clear()
+        emptyList.clear()
     }
 
 }
