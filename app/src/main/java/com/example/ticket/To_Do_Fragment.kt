@@ -62,7 +62,7 @@ class To_Do_Fragment : Fragment() {
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 fragmentTransaction.replace(
                     ((view as ViewGroup).parent as View).id,
-                    UpdateTicket(ticket.id),
+                    UpdateTicket(ticket.id.toString()),
                 )
                 fragmentTransaction.addToBackStack(null)
                 fragmentTransaction.commit()
