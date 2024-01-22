@@ -8,8 +8,14 @@
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Titulo"/>
     <EditText
         android:id="@+id/etTitulo"
         android:layout_width="match_parent"
@@ -17,6 +23,13 @@
         android:layout_margin="16dp"
         android:hint="Titulo"
         android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Nombre Responsable"/>
 
     <EditText
         android:id="@+id/etNombre"
@@ -26,29 +39,52 @@
         android:hint="Nombre Responsable"
         android:inputType="text"/>
 
-    <EditText
-        android:id="@+id/etEquipo"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
-        android:hint="Equipo"
-        android:inputType="text"/>
+        android:textSize="15sp"
+        android:text="Equipo Responsable"/>
 
-    <EditText
-        android:id="@+id/etIncidencia"
+    <Spinner
+        android:id="@+id/spinnerEquipo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Tipo Incidencia"
-        android:inputType="text"/>
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"/>
 
-    <EditText
-        android:id="@+id/etGravedad"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
-        android:hint="Gravedad Incidencia"
-        android:inputType="text"/>
+        android:textSize="15sp"
+        android:text="Tipo Incidencia"/>
+
+    <Spinner
+        android:id="@+id/spinnerTipoIncidencia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Gravedad Incidencia"/>
+
+    <Spinner
+        android:id="@+id/spinnerGravedad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Version Software"/>
+
 
     <EditText
         android:id="@+id/etSoftware"
@@ -58,6 +94,13 @@
         android:hint="Version Software"
         android:inputType="text"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Descripcion"/>
+
     <EditText
         android:id="@+id/etDescripcion"
         android:layout_width="match_parent"
@@ -65,6 +108,13 @@
         android:layout_margin="16dp"
         android:hint="Descripcion"
         android:inputType="text"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:textSize="15sp"
+        android:text="Archivos"/>
 
     <EditText
         android:id="@+id/etArchivos"
@@ -74,13 +124,19 @@
         android:hint="Archivos"
         android:inputType="text"/>
 
-    <EditText
-        android:id="@+id/etEstatus"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
-        android:hint="Estatus"
-        android:inputType="text"/>
+        android:textSize="15sp"
+        android:text="Estatus"/>
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"/>
 
     <Button
         android:id="@+id/button"

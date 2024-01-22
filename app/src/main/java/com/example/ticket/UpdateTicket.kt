@@ -5,16 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.example.ticket.Model.Ticket
-import com.example.ticket.databinding.ActivityAddTickeBinding
 import com.example.ticket.databinding.FragmentUpdateTicketBinding
-import com.google.firebase.database.database
 import com.google.firebase.firestore.FirebaseFirestore
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +27,11 @@ class UpdateTicket(idValue: String) : Fragment() {
     private val idSearch = idValue
     private var ticketActual:Ticket? = null
     private lateinit var binding: FragmentUpdateTicketBinding
+    val estatusArray = resources.getStringArray(R.array.Estatus)
+    val equipoArray = resources.getStringArray(R.array.Equipo)
+    val incidenciaArray = resources.getStringArray(R.array.Incidencia)
+    val gravedadArray = resources.getStringArray(R.array.Gravedad)
+    val data2 = HashMap<String, Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,68 @@ class UpdateTicket(idValue: String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentUpdateTicketBinding.inflate(inflater,container,false)
+        binding = FragmentUpdateTicketBinding.inflate(inflater, container, false)
+
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_item, estatusArray)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val spinner = binding.spinner
+        spinner.adapter = adapter
+        spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                data2["Estatus"] = estatusArray[position]
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        })
+
+        val spinnerEquipo = binding.spinnerEquipo
+        spinnerEquipo.adapter = adapter
+        spinnerEquipo.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                data2["Equipo Responsable"] = equipoArray[position]
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        })
+
+        val spinnerIncidencia = binding.spinnerTipoIncidencia
+        spinnerIncidencia.adapter = adapter
+        spinnerIncidencia.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                data2["Tipo Incidencia"] = incidenciaArray[position]
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        })
+
+        val spinnerGravedad = binding.spinnerGravedad
+        spinnerGravedad.adapter = adapter
+        spinnerGravedad.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?,
+                position: Int, id: Long
+            ) {
+                data2["Gravedad Incidencia"] = gravedadArray[position]
+            }
+
+            override fun onNothingSelected(arg0: AdapterView<*>?) {}
+        })
+
         binding.button.setOnClickListener {
             updateFunction()
         }
+
         return binding.root
     }
 
@@ -61,13 +118,29 @@ class UpdateTicket(idValue: String) : Fragment() {
             if (ticket != null) {
                 binding.etTitulo.setText(ticket.getString("Titulo"))
                 binding.etNombre.setText(ticket.getString("Nombre Responsable"))
-                binding.etEquipo.setText(ticket.getString("Equipo Responsable"))
-                binding.etIncidencia.setText(ticket.getString("Tipo Incidencia"))
-                binding.etGravedad.setText(ticket.getString("Gravedad Incidencia"))
+                when(ticket.getString("Equipo Responsable")){
+                    "Soporte" ->  binding.spinnerEquipo.setSelection(0)
+                    "Desarrollo" -> binding.spinnerEquipo.setSelection(1)
+                     "Atencion a clientes" -> binding.spinnerEquipo.setSelection(2)
+                }
+                when(ticket.getString("Tipo Incidencia")){
+                    "Bug" ->  binding.spinnerTipoIncidencia.setSelection(0)
+                    "Feature" -> binding.spinnerTipoIncidencia.setSelection(1)
+                }
+                when(ticket.getString("Gravedad Incidencia")){
+                    "High" ->  binding.spinnerGravedad.setSelection(0)
+                    "Medium" -> binding.spinnerGravedad.setSelection(1)
+                    "Low" -> binding.spinnerGravedad.setSelection(2)
+                }
                 binding.etSoftware.setText(ticket.getString("Version Software"))
                 binding.etDescripcion.setText(ticket.getString("Descripcion"))
                 binding.etArchivos.setText(ticket.getString("Archivos"))
-                binding.etEstatus.setText(ticket.getString("Estatus"))
+                when(ticket.getString("Estatus")){
+                    "Nuevo" ->  binding.spinner.setSelection(0)
+                    "Atendido" -> binding.spinner.setSelection(1)
+                    "Proceso" -> binding.spinner.setSelection(2)
+                    "Archivado" -> binding.spinner.setSelection(3)
+                }
             }else{
                 println("Ticket no found")
             }
@@ -79,17 +152,12 @@ class UpdateTicket(idValue: String) : Fragment() {
 
     private fun updateFunction(){
         val db = FirebaseFirestore.getInstance()
-        val data2 = HashMap<String, Any>()
         data2["Titulo"]= binding.etTitulo.text.toString()
         data2["Fecha"]=ticketActual?.fecha.toString()
         data2["Nombre Responsable"]=binding.etNombre.text.toString()
-        data2["Equipo Responsable"]=binding.etEquipo.text.toString()
-        data2["Tipo Incidencia"]=binding.etIncidencia.text.toString()
-        data2["Gravedad Incidencia"]=binding.etGravedad.text.toString()
         data2["Version Software"]=binding.etSoftware.text.toString()
         data2["Descripcion"]=binding.etDescripcion.text.toString()
         data2["Archivos"]=binding.etArchivos.text.toString()
-        data2["Estatus"]=binding.etEstatus.text.toString()
         db.collection("Tickets").document(idSearch).update(data2).addOnSuccessListener {
             println("Update exitoso")
         }
