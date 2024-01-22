@@ -27,10 +27,6 @@ class UpdateTicket(idValue: String) : Fragment() {
     private val idSearch = idValue
     private var ticketActual:Ticket? = null
     private lateinit var binding: FragmentUpdateTicketBinding
-    val estatusArray = resources.getStringArray(R.array.Estatus)
-    val equipoArray = resources.getStringArray(R.array.Equipo)
-    val incidenciaArray = resources.getStringArray(R.array.Incidencia)
-    val gravedadArray = resources.getStringArray(R.array.Gravedad)
     val data2 = HashMap<String, Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +38,10 @@ class UpdateTicket(idValue: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateTicketBinding.inflate(inflater, container, false)
-
+        val equipoArray = arrayOf("Soporte","Desarrollo","Atencion a clientes")
+        val incidenciaArray = arrayOf("Bug","Feature")
+        val gravedadArray = arrayOf("High","Medium","Low")
+        val estatusArray = arrayOf("Nuevo","Atendido","Proceso","Archivado")
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_item, estatusArray)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -60,8 +59,12 @@ class UpdateTicket(idValue: String) : Fragment() {
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         })
 
+        val adapterEquipo: ArrayAdapter<String> =
+            ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_item, equipoArray)
+        adapterEquipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         val spinnerEquipo = binding.spinnerEquipo
-        spinnerEquipo.adapter = adapter
+        spinnerEquipo.adapter = adapterEquipo
         spinnerEquipo.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?,
@@ -73,8 +76,13 @@ class UpdateTicket(idValue: String) : Fragment() {
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         })
 
+        val adapterIncidencia: ArrayAdapter<String> =
+            ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_item, incidenciaArray)
+        adapterIncidencia.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+
         val spinnerIncidencia = binding.spinnerTipoIncidencia
-        spinnerIncidencia.adapter = adapter
+        spinnerIncidencia.adapter = adapterIncidencia
         spinnerIncidencia.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?,
@@ -86,8 +94,13 @@ class UpdateTicket(idValue: String) : Fragment() {
             override fun onNothingSelected(arg0: AdapterView<*>?) {}
         })
 
+        val adapterGravedad: ArrayAdapter<String> =
+            ArrayAdapter<String>(activity?.applicationContext!!, android.R.layout.simple_spinner_item, gravedadArray)
+        adapterGravedad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+
         val spinnerGravedad = binding.spinnerGravedad
-        spinnerGravedad.adapter = adapter
+        spinnerGravedad.adapter = adapterGravedad
         spinnerGravedad.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?, view: View?,
@@ -102,8 +115,8 @@ class UpdateTicket(idValue: String) : Fragment() {
         binding.button.setOnClickListener {
             updateFunction()
         }
-
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

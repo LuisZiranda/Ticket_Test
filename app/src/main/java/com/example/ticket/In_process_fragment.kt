@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.ticket.Model.Ticket
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,9 +21,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class In_process_fragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val db= FirebaseFirestore.getInstance()
+    private val coleccion = db.collection("Tickets")
+    private var emptyList:ArrayList<Ticket> = ArrayList<Ticket>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,23 +37,41 @@ class In_process_fragment : Fragment() {
         return inflater.inflate(R.layout.fragment_in_process_fragment, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment In_process_fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            In_process_fragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        coleccion.get().addOnSuccessListener { querySnapshot ->
+            for (document in querySnapshot){
+                val titulo = document.getString("Titulo")
+                val nombre = document.getString("Nombre Responsable")
+                val fecha = document.getString("Fecha")
+                val equipo = document.getString("Equipo Responsable")
+                val tipo_incidencia = document.getString("Tipo Incidencia")
+                val gravedad_incidencia = document.getString("Gravedad Incidencia")
+                val version_software = document.getString("Version Software")
+                val descripcion = document.getString("Descripcion")
+                val archivos = document.getString("Archivos")
+                val estatus = document.getString("Estatus")
+                val ID = document.id
+                if (estatus == "Proceso"){
+                    val modelo = Ticket(ID,titulo,nombre,equipo,tipo_incidencia,gravedad_incidencia,
+                        version_software,descripcion,archivos,estatus,fecha)
+                    emptyList.add(modelo)
                 }
             }
+            val itemAdapter = Adaptador_Ticket(emptyList){ ticket ->
+                val fragmentManager = requireActivity().supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(
+                    ((view as ViewGroup).parent as View).id,
+                    UpdateTicket(ticket.id.toString()),
+                )
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+            }
+            val recyclerView: RecyclerView =view.findViewById(R.id.recyclerView_in_process)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = itemAdapter
+        }
+        emptyList.clear()
     }
 }
