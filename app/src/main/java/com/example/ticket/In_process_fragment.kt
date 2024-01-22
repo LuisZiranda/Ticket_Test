@@ -10,16 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ticket.Model.Ticket
 import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [In_process_fragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class In_process_fragment : Fragment() {
     private val db= FirebaseFirestore.getInstance()
     private val coleccion = db.collection("Tickets")

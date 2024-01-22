@@ -3,13 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        app:title="Ticket App"
+        app:titleMarginStart="50dp"
+        app:titleTextColor="@color/beige">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:layout_gravity="end"
+            android:src="@drawable/archived" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragmentContainer"
-        android:layout_above="@+id/bottomNav"/>
+        android:layout_above="@+id/bottomNav"
+        android:layout_below="@+id/toolbar"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButton"
@@ -24,10 +45,10 @@
         android:src="@drawable/asset_more"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="@color/design_default_color_primary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
+        android:background="@color/beige"
         android:id="@+id/bottomNav"
         app:menu="@menu/principal_menu"/>
 

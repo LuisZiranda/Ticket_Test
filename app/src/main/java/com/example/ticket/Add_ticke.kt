@@ -93,6 +93,7 @@ class Add_ticke : AppCompatActivity() {
         dataInsertar["Estatus"]= "Nuevo"
         db.collection("Tickets").add(dataInsertar).addOnSuccessListener { documentReference ->
             println("Registro exitoso")
+            finish()
         }
             .addOnFailureListener{
                     e ->

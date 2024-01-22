@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Titulo"/>
     <EditText
         android:id="@+id/etTitulo"
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Titulo"
+        android:textColorHint="@color/gray"
         android:inputType="text"/>
 
     <TextView
@@ -29,6 +31,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Nombre Responsable"/>
 
     <EditText
@@ -37,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Nombre Responsable"
+        android:textColorHint="@color/gray"
         android:inputType="text"/>
 
     <TextView
@@ -44,6 +48,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Equipo Responsable"/>
 
     <Spinner
@@ -55,6 +60,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textColor="@color/black"
         android:layout_margin="16dp"
         android:textSize="15sp"
         android:text="Tipo Incidencia"/>
@@ -70,6 +76,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Gravedad Incidencia"/>
 
     <Spinner
@@ -83,6 +90,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Version Software"/>
 
 
@@ -92,6 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Version Software"
+        android:textColorHint="@color/gray"
         android:inputType="text"/>
 
     <TextView
@@ -99,6 +108,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Descripcion"/>
 
     <EditText
@@ -106,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Descripcion"
+        android:textColorHint="@color/gray"
         android:inputType="text"/>
 
     <TextView
@@ -114,6 +124,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Archivos"/>
 
     <EditText
@@ -121,7 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Archivos"
+        android:textColorHint="@color/gray"
         android:inputType="text"/>
 
     <TextView
@@ -129,6 +140,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:textSize="15sp"
+        android:textColor="@color/black"
         android:text="Estatus"/>
 
 
@@ -142,7 +154,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"/>
+        android:layout_gravity="center"
+        android:text="Actualizar"/>
 
 </LinearLayout>
 

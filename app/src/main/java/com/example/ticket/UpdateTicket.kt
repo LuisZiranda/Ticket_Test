@@ -11,16 +11,6 @@ import com.example.ticket.Model.Ticket
 import com.example.ticket.databinding.FragmentUpdateTicketBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [UpdateTicket.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UpdateTicket(idValue: String) : Fragment() {
     private val db= FirebaseFirestore.getInstance()
     private val coleccion = db.collection("Tickets")
@@ -114,6 +104,7 @@ class UpdateTicket(idValue: String) : Fragment() {
 
         binding.button.setOnClickListener {
             updateFunction()
+
         }
         return binding.root
 
@@ -173,6 +164,7 @@ class UpdateTicket(idValue: String) : Fragment() {
         data2["Archivos"]=binding.etArchivos.text.toString()
         db.collection("Tickets").document(idSearch).update(data2).addOnSuccessListener {
             println("Update exitoso")
+            parentFragmentManager.popBackStack()
         }
             .addOnFailureListener{
                     e ->
